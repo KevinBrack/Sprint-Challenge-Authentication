@@ -4,6 +4,7 @@ import { Route } from "react-router-dom";
 
 // COMPONENTS //
 import Login from "./components/Login/Login";
+import Jokes from "./components/Jokes/Jokes";
 
 class App extends Component {
   constructor(props) {
@@ -27,6 +28,7 @@ class App extends Component {
             <Login {...props} tokenHandler={this.handleNewToken} />
           )}
         />
+        <Route path="/jokes" component={Jokes} />
       </div>
     );
   }
