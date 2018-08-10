@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./Login.css";
 import axios from "axios";
+import { withRouter } from "react-router-dom";
 
 class Login extends Component {
   constructor(props) {
@@ -32,6 +33,7 @@ class Login extends Component {
         console.log("data", res.data);
         this.props.tokenHandler(res.data);
         localStorage.setItem("jwt", res.data);
+        this.props.history.push("/jokes");
       })
       .catch(error => {
         console.log("Axios Failed", error.message);
@@ -73,4 +75,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default withRouter(Login);
