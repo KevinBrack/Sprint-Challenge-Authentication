@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./Login.css";
+import axios from "axios";
 
 class Login extends Component {
   constructor(props) {
@@ -23,7 +24,15 @@ class Login extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    console.log("SUBMITTED");
+    console.log("SUBMITTED", this.state);
+    axios
+      .post("http://localhost:5000/api/login", this.state)
+      .then(res => {
+        console.log("data", res.data);
+      })
+      .catch(error => {
+        console.log("Axios Failed");
+      });
   };
 
   render() {
