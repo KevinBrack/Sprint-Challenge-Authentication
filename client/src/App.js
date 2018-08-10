@@ -9,25 +9,24 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      config: {
-        headers: { authentication: "" }
-      },
-      url: "http://localhost:8000"
+      url: "http://localhost:5000",
+      token: ""
     };
   }
 
-  handleLoginSubmit = credentials => {};
-
-  handleRegisterSubmit = credentials => {};
-
-  handleFetchUsers = () => {
-    const config = this.state.config;
+  handleNewToken = token => {
+    this.setState({ token });
   };
 
   render() {
     return (
       <div className="App">
-        <Route path="/login" component={Login} />
+        <Route
+          path="/login"
+          render={props => (
+            <Login {...props} tokenHandler={this.handleNewToken} />
+          )}
+        />
       </div>
     );
   }

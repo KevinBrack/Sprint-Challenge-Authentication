@@ -12,7 +12,7 @@ class Login extends Component {
   }
 
   handleChange = event => {
-    console.log("INPUT FORM EVENT: ", event);
+    // console.log("INPUT FORM EVENT: ", event);
     const target = event.target;
     const value = target.type === "checkbox" ? target.checked : target.value;
     const name = target.name;
@@ -24,16 +24,23 @@ class Login extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    console.log("SUBMITTED", this.state);
+    // console.log("SUBMITTED", this.state);
+
     axios
       .post("http://localhost:5000/api/login", this.state)
       .then(res => {
         console.log("data", res.data);
+        this.props.tokenHandler(res.data);
+        localStorage.setItem("jwt", res.data);
       })
       .catch(error => {
-        console.log("Axios Failed");
+        console.log("Axios Failed", error.message);
       });
   };
+
+  componentDidMount() {
+    // console.log("LOGIN PROPS", this.props);
+  }
 
   render() {
     return (
@@ -50,7 +57,7 @@ class Login extends Component {
           />
           <input
             className="form-control"
-            type="text"
+            type="password"
             name="password"
             placeholder="PASSWORD"
             value={this.state.password}
